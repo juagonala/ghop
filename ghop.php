@@ -118,7 +118,7 @@ class Ghop {
 		// The data to submit to the shop's server.
 		$data = array(
 			'username' => $current_user->user_login,
-			'hora'     => gmdate( 'H:i', $current_time ),
+			'hora'     => wp_date( 'Y-m-d H:i:s', $current_time ),
 			'datetime' => $current_time,
 		);
 
