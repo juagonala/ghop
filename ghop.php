@@ -94,8 +94,9 @@ class Ghop {
 			'ghop-scripts',
 			'ghop_scripts_params',
 			array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'ghop-open-door' ),
+				'ajax_url'    => admin_url( 'admin-ajax.php' ),
+				'nonce'       => wp_create_nonce( 'ghop-open-door' ),
+				'button_text' => __( 'Opening&hellip;', 'ghop' ),
 			)
 		);
 	}
@@ -155,7 +156,7 @@ class Ghop {
 			wp_send_json_error( array( 'message' => __( 'An unexpected error occurred. Please, contact us for assistance.', 'ghop' ) ) );
 		}
 
-		wp_send_json_success( array( 'message' => __( 'Opening the door. Welcome!', 'ghop' ) ) );
+		wp_send_json_success( array( 'message' => __( 'Shop opened. Welcome!', 'ghop' ) ) );
 	}
 }
 

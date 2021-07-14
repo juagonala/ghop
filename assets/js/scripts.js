@@ -14,9 +14,10 @@
 		$( document.body ).on( 'click', '#ghop-open-door', function( event ) {
 			event.preventDefault();
 
-			var $button = $( this );
+			var $button = $( this ),
+				text    = $( this ).text();
 
-			$button.attr( 'disabled', true );
+			$button.text( params.button_text );
 			$button.parent().find( '.ghop-open-door-notice' ).remove();
 
 			$.post({
@@ -33,10 +34,10 @@
 						.removeClass( 'success error' )
 						.addClass( result.success ? 'success' : 'error' );
 
+					// Restore the original text.
+					$button.text( text );
+
 					$button.after( $notice );
-				},
-				completed: function() {
-					$button.attr( 'disabled', false );
 				}
 			});
 		});

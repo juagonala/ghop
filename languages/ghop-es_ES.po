@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2021-07-13T15:49:16+00:00\n"
-"PO-Revision-Date: 2021-07-14 19:59+0000\n"
+"PO-Revision-Date: 2021-07-14 20:30+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: ghop\n"
 "Language: es_ES\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Add-ons for the website."
 msgstr ""
 
-#: ghop.php:155
+#: ghop.php:156
 msgid "An unexpected error occurred. Please, contact us for assistance."
 msgstr ""
 "Ocurrió un error inesperado. Contáctenos con nosotros para obtener ayuda."
@@ -42,16 +42,20 @@ msgstr ""
 msgid "juagonala"
 msgstr ""
 
-#: ghop.php:112
+#: ghop.php:113
 msgid "Log in first."
 msgstr "Inicie sesión primero."
 
-#: ghop.php:158
-msgid "Opening the door. Welcome!"
-msgstr "Abriendo la puerta. ¡Bienvenido! "
+#: ghop.php:99
+msgid "Opening&hellip;"
+msgstr "Abriendo&hellip;"
+
+#: ghop.php:159
+msgid "Shop opened. Welcome!"
+msgstr "Tienda abierta. ¡Bienvenido!"
 
 #. translators: %s: contact email
-#: ghop.php:122
+#: ghop.php:123
 msgid ""
 "We have detected a suspicious situation. Write to us at %s for more details. "
 msgstr ""
