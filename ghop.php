@@ -128,7 +128,10 @@ class Ghop {
 				'httpversion' => '1.1',
 				'sslverify'   => false,
 				'timeout'     => 60,
-				'body'        => $data,
+				'body'        => wp_json_encode( $data ),
+				'headers'     => array(
+					'Content-Type' => 'application/json',
+				),
 			)
 		);
 
