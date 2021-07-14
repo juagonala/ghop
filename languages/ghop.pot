@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-07-13T15:49:16+00:00\n"
+"POT-Creation-Date: 2021-07-14T19:58:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: ghop\n"
@@ -38,10 +38,15 @@ msgstr ""
 msgid "Log in first."
 msgstr ""
 
-#: ghop.php:139
+#. translators: %s: contact email
+#: ghop.php:122
+msgid "We have detected a suspicious situation. Write to us at %s for more details. "
+msgstr ""
+
+#: ghop.php:155
 msgid "An unexpected error occurred. Please, contact us for assistance."
 msgstr ""
 
-#: ghop.php:142
+#: ghop.php:158
 msgid "Opening the door. Welcome!"
 msgstr ""

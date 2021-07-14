@@ -113,6 +113,19 @@ class Ghop {
 		}
 
 		$current_user = wp_get_current_user();
+
+		if ( in_array( 'contributor', $current_user->roles, true ) ) {
+			wp_send_json_error(
+				array(
+					'message' => sprintf(
+						/* translators: %s: contact email */
+						__( 'We have detected a suspicious situation. Write to us at %s for more details. ', 'ghop' ),
+						'<a href="mailto:hola@ghop.es">hola@ghop.es</a>'
+					),
+				)
+			);
+		}
+
 		$current_time = time(); // UNIX timestamp.
 
 		// The data to submit to the shop's server.

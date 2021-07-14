@@ -10,12 +10,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2021-07-13T15:49:16+00:00\n"
-"PO-Revision-Date: 2021-07-13 15:53+0000\n"
+"PO-Revision-Date: 2021-07-14 19:59+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: ghop\n"
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Version: 2.5.3; wp-5.8-RC2"
+
+#. Description of the plugin
+msgid "Add-ons for the website."
+msgstr ""
+
+#: ghop.php:155
+msgid "An unexpected error occurred. Please, contact us for assistance."
+msgstr ""
+"Ocurrió un error inesperado. Contáctenos con nosotros para obtener ayuda."
 
 #. Plugin Name of the plugin
 msgid "Ghop"
@@ -25,27 +34,25 @@ msgstr ""
 msgid "https://ghop.es"
 msgstr ""
 
-#. Description of the plugin
-msgid "Add-ons for the website."
+#. Author URI of the plugin
+msgid "https://juagonala.com/"
 msgstr ""
 
 #. Author of the plugin
 msgid "juagonala"
 msgstr ""
 
-#. Author URI of the plugin
-msgid "https://juagonala.com/"
-msgstr ""
-
 #: ghop.php:112
 msgid "Log in first."
 msgstr "Inicie sesión primero."
 
-#: ghop.php:139
-msgid "An unexpected error occurred. Please, contact us for assistance."
-msgstr ""
-"Ocurrió un error inesperado. Contáctenos con nosotros para obtener ayuda."
-
-#: ghop.php:142
+#: ghop.php:158
 msgid "Opening the door. Welcome!"
 msgstr "Abriendo la puerta. ¡Bienvenido! "
+
+#. translators: %s: contact email
+#: ghop.php:122
+msgid ""
+"We have detected a suspicious situation. Write to us at %s for more details. "
+msgstr ""
+"Hemos detectado una situación sospechosa. Escríbenos a %s para más detalles."
