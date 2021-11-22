@@ -10,15 +10,45 @@
 
 	'use strict';
 
-	$(function () {
-		$( document.body ).on( 'click', '#ghop-open-door', function( event ) {
-			event.preventDefault();
+	var GhopDoorButton = function( element, options ) {
+		var defaults = {
+			'buttonText': 'Opening&hellip;',
+			'phone': '',
+			'phoneVerified': false
+		};
 
-			var $button = $( this ),
-				text    = $( this ).text();
+		this.options = $.extend( true, {}, defaults, options );
+		this.$element = $( element );
 
-			$button.text( params.button_text );
-			$button.parent().find( '.ghop-open-door-notice' ).remove();
+		this.init();
+		this.bindEvents();
+	};
+
+	GhopDoorButton.prototype = {
+		init: function() {
+			console.log( this.options );
+		},
+
+		bindEvents: function() {
+			var that = this;
+
+			this.$element.on( 'click', function( event ) {
+				event.preventDefault();
+
+				if ( that.options.phoneVerified ) {
+					that.openDoor();
+				} else {
+					that.verifyPhone();
+				}
+			} );
+		},
+
+		openDoor: function() {
+			var that = this,
+				originalText = this.$element.text();
+
+			this.$element.text( this.options.buttonText )
+			this.$element.parent().find( '.ghop-open-door-notice' ).remove()
 
 			$.post({
 				url: params.ajax_url,
@@ -35,11 +65,33 @@
 						.addClass( result.success ? 'success' : 'error' );
 
 					// Restore the original text.
-					$button.text( text );
+					that.$element.text( originalText );
 
-					$button.after( $notice );
+					that.$element.after( $notice );
 				}
 			});
+		},
+
+		verifyPhone: function() {
+			console.log('verify');
+		}
+	};
+
+	$.fn.ghopDoorButton = function( options ) {
+		options = $.extend( true, {}, options );
+
+		this.each( function() {
+			new GhopDoorButton( this, options );
+		} );
+
+		return this;
+	};
+
+	$(function () {
+		$( '#ghop-open-door' ).ghopDoorButton({
+			phone: params.phone,
+			phoneVerified: ( '1' === params.phone_verified ),
+			buttonText: params.button_text
 		});
 	});
 } )( jQuery, ghop_scripts_params );

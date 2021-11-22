@@ -89,14 +89,18 @@ class Ghop {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
+		$user_id = get_current_user_id();
+
 		wp_enqueue_script( 'ghop-scripts', GHOP_URL . '/assets/js/scripts.js', array( 'jquery' ), GHOP_VERSION, true );
 		wp_localize_script(
 			'ghop-scripts',
 			'ghop_scripts_params',
 			array(
-				'ajax_url'    => admin_url( 'admin-ajax.php' ),
-				'nonce'       => wp_create_nonce( 'ghop-open-door' ),
-				'button_text' => __( 'Opening&hellip;', 'ghop' ),
+				'ajax_url'       => admin_url( 'admin-ajax.php' ),
+				'nonce'          => wp_create_nonce( 'ghop-open-door' ),
+				'button_text'    => __( 'Opening&hellip;', 'ghop' ),
+				'phone'          => get_user_meta( $user_id, 'mobile', true ),
+				'phone_verified' => get_user_meta( $user_id, 'mobile_verified', true ),
 			)
 		);
 	}
