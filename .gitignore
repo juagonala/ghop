@@ -1,0 +1,41 @@
+# Editors
+project.xml
+project.properties
+/nbproject/private/
+.buildpath
+.project
+.settings*
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+.sublimelinterrc
+
+# OS X metadata
+.DS_Store
+
+# Windows junk
+Thumbs.db
+
+# Sass
+.sass-cache/
+
+# NPM vendors
+/node_modules/
+npm-debug.log
+
+# Composer
+/vendor/
+
+# Compiled CSS
+/assets/css/*.css
+
+# Minified JS
+/assets/js/admin/*.min.js
+/assets/js/frontend/*.min.js
+
+# Language files
+/languages/*.pot
+
+# Build
+build/
