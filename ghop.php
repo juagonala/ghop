@@ -70,6 +70,7 @@ class Ghop {
 	private function init_hooks() {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_ajax_ghop_verify_phone', array( $this, 'ajax_verify_phone' ) );
 		add_action( 'wp_ajax_ghop_open_door', array( $this, 'ajax_open_door' ) );
 	}
 
@@ -91,6 +92,11 @@ class Ghop {
 	public function enqueue_scripts() {
 		$user_id = get_current_user_id();
 
+		if ( defined( 'WP_SMS_PRO_URL' ) ) {
+			wp_enqueue_style( 'jquery-confirm', WP_SMS_PRO_URL . 'assets/js/jquery-confirm/jquery-confirm.min.css', false, WP_SMS_PRO_VERSION );
+			wp_enqueue_script( 'jquery-confirm', WP_SMS_PRO_URL . 'assets/js/jquery-confirm/jquery-confirm.min.js', array( 'jquery' ), WP_SMS_PRO_VERSION, true );
+		}
+
 		wp_enqueue_script( 'ghop-scripts', GHOP_URL . '/assets/js/scripts.js', array( 'jquery' ), GHOP_VERSION, true );
 		wp_localize_script(
 			'ghop-scripts',
@@ -106,7 +112,42 @@ class Ghop {
 	}
 
 	/**
-	 * AJAX request for opening the shop door.
+	 * AJAX Request for verifying the customer phone.
+	 *
+	 * @since 1.0.0
+	 */
+	public function ajax_verify_phone() {
+		$step = ( ! empty( $_POST['step'] ) ? intval( wp_unslash( $_POST['step'] ) ) : 1 );
+
+		if ( 1 === $step ) {
+			// Phone not submitted yet.
+			if ( ! isset( $_POST['phone'] ) ) {
+				$phone = get_user_meta( get_current_user_id(), 'mobile', true );
+			} else {
+				$phone = sanitize_text_field( wp_unslash( $_POST['phone'] ) );
+
+				// TODO: Validate phone here.
+				// TODO: Set customer phone and generate the verification code.
+				$step = 2;
+			}
+		} elseif ( 2 === $step ) {
+			$code = ( ! empty( $_POST['code'] ) ? sanitize_text_field( wp_unslash( $_POST['code'] ) ) : '' );
+
+			// TODO: Validate code here.
+			$step = 3;
+		}
+
+		ob_start();
+
+		include GHOP_PATH . 'views/html-dialog-verify-phone.php';
+
+		$content = ob_get_clean();
+
+		wp_send_json_success( array( 'content' => $content ) );
+	}
+
+	/**
+	 * AJAX Request for opening the shop door.
 	 *
 	 * @since 1.0.0
 	 */

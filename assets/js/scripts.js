@@ -17,17 +17,14 @@
 			'phoneVerified': false
 		};
 
-		this.options = $.extend( true, {}, defaults, options );
-		this.$element = $( element );
+		this.options           = $.extend( true, {}, defaults, options );
+		this.$element          = $( element );
+		this.verifyPhoneDialog = undefined;
 
-		this.init();
 		this.bindEvents();
 	};
 
 	GhopDoorButton.prototype = {
-		init: function() {
-			console.log( this.options );
-		},
 
 		bindEvents: function() {
 			var that = this;
@@ -41,10 +38,22 @@
 					that.verifyPhone();
 				}
 			} );
+
+			$( document.body ).on( 'submit', '.ghop-dialog #ghop-verify-phone-form', function( event ) {
+				event.preventDefault();
+
+				that.verifyPhoneDialog.showLoading();
+				that.verifyPhone({
+					step: $( this ).find( 'input[name="step"]' ).val(),
+					phone: $( this ).find( 'input[name="phone"]' ).val()
+				} );
+
+				return false;
+			} );
 		},
 
 		openDoor: function() {
-			var that = this,
+			var that         = this,
 				originalText = this.$element.text();
 
 			this.$element.text( this.options.buttonText )
@@ -72,8 +81,35 @@
 			});
 		},
 
-		verifyPhone: function() {
-			console.log('verify');
+		verifyPhone: function( args ) {
+			var that = this,
+				data = $.extend( {}, args || {}, {
+					action: 'ghop_verify_phone'
+				} );
+
+			if ( ! this.verifyPhoneDialog ) {
+				this.verifyPhoneDialog = $.dialog( {
+					columnClass: 'ghop-dialog',
+					title: '',
+					width: 'auto',
+					content: ''
+				} );
+			}
+
+			$.post( {
+				url: params.ajax_url,
+				dataType: 'json',
+				data: data
+			} )
+			.done( function( response ) {
+				that.verifyPhoneDialog.setContent( response.data.content );
+			} )
+			.fail( function() {
+				that.verifyPhoneDialog.setContent( '<p>Something went wrong.</p>' );
+			} )
+			.always( function() {
+				that.verifyPhoneDialog.hideLoading();
+			} );
 		}
 	};
 
