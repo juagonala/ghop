@@ -127,6 +127,14 @@ class Ghop {
 			);
 		}
 
+		// Additional validation for subscribers.
+		if ( in_array( 'subscriber', $current_user->roles, true ) ) {
+			// Check the user has a verified phone.
+			if ( class_exists( 'WP_SMS', false ) && ! get_user_meta( $current_user->ID, 'mobile_verified', true ) ) {
+				wp_send_json_error( array( 'message' => __( 'Phone not verified.', 'ghop' ) ) );
+			}
+		}
+
 		$current_time = time(); // UNIX timestamp.
 
 		// The data to submit to the shop's server.
