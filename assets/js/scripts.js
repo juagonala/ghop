@@ -38,6 +38,8 @@
 				}
 			} );
 
+			$( document.body ).on( 'verifyPhone.contentUpdated', this.initPhoneField );
+
 			$( document.body ).on( 'submit', '.ghop-dialog #ghop-verify-phone-form', function( event ) {
 				event.preventDefault();
 
@@ -105,6 +107,7 @@
 			} )
 			.done( function( response ) {
 				that.verifyPhoneDialog.setContent( response.data.content );
+				$( document.body ).trigger( 'verifyPhone.contentUpdated' );
 			} )
 			.fail( function() {
 				that.verifyPhoneDialog.setContent( '<p>Something went wrong.</p>' );
@@ -112,6 +115,26 @@
 			.always( function() {
 				that.verifyPhoneDialog.hideLoading();
 			} );
+		},
+
+		initPhoneField: function() {
+			var input = document.querySelector( '.ghop-dialog #ghop-verify-phone-form .wp-sms-input-mobile' );
+
+			if ( ! input ) {
+				return;
+			}
+
+			window.intlTelInput( input, {
+				onlyCountries: wp_sms_intel_tel_input.only_countries,
+				preferredCountries: wp_sms_intel_tel_input.preferred_countries,
+				autoHideDialCode: wp_sms_intel_tel_input.auto_hide,
+				nationalMode: wp_sms_intel_tel_input.national_mode,
+				separateDialCode: wp_sms_intel_tel_input.separate_dial,
+				utilsScript: wp_sms_intel_tel_input.util_js,
+				customContainer: 'intel-otp'
+			});
+
+			$( '.intel-otp #country-listbox' ).attr('style', 'position: fixed !important;' );
 		}
 	};
 
