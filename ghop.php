@@ -97,6 +97,7 @@ class Ghop {
 			wp_enqueue_script( 'jquery-confirm', WP_SMS_PRO_URL . 'assets/js/jquery-confirm/jquery-confirm.min.js', array( 'jquery' ), WP_SMS_PRO_VERSION, true );
 		}
 
+		wp_enqueue_style( 'ghop-styles', GHOP_URL . '/assets/css/styles.css', array(), GHOP_VERSION );
 		wp_enqueue_script( 'ghop-scripts', GHOP_URL . '/assets/js/scripts.js', array( 'jquery' ), GHOP_VERSION, true );
 		wp_localize_script(
 			'ghop-scripts',

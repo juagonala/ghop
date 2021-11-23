@@ -1,0 +1,28 @@
+/**
+ * Frontend styles.
+ *
+ * @package Ghop/Assets/CSS
+ * @since   {version}
+ */
+
+.intel-otp #country-listbox {
+	position: fixed !important;
+}
+
+.ghop-dialog {
+	max-width: 500px;
+	margin: auto;
+	padding: 1rem;
+}
+
+.ghop-dialog-content {
+	text-align: center;
+}
+
+.phone-verification-heading {
+	margin: 1rem 0;
+}
+
+#ghop-verify-phone-form {
+	margin-top: 1rem;
+}

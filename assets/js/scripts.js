@@ -133,8 +133,6 @@
 				utilsScript: wp_sms_intel_tel_input.util_js,
 				customContainer: 'intel-otp'
 			});
-
-			$( '.intel-otp #country-listbox' ).attr('style', 'position: fixed !important;' );
 		}
 	};
 
