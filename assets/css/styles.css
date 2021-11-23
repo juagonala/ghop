@@ -26,3 +26,9 @@
 #ghop-verify-phone-form {
 	margin-top: 1rem;
 }
+
+#ghop-verify-phone-form input[type="submit"],
+.phone-verified-button {
+	margin-top: 1rem;
+	padding: 12px 24px;
+}

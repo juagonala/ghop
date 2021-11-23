@@ -24,6 +24,7 @@ defined( 'ABSPATH' ) || exit;
 		<p>We send you a verification code</p>
 	<?php else : ?>
 		<p>Your phone was verified successfully.</p>
+		<p><button class="button phone-verified-button">Accept</button></p>
 	<?php endif; ?>
 
 	<?php if ( 3 > $step ) : ?>

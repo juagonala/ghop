@@ -51,6 +51,12 @@
 
 				return false;
 			} );
+
+			$( document.body ).on( 'click', '.ghop-dialog .phone-verified-button', function( event ) {
+				event.preventDefault();
+
+				that.verifyPhoneDialog.close();
+			} );
 		},
 
 		openDoor: function() {
