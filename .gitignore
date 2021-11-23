@@ -26,16 +26,3 @@ npm-debug.log
 
 # Composer
 /vendor/
-
-# Compiled CSS
-/assets/css/*.css
-
-# Minified JS
-/assets/js/admin/*.min.js
-/assets/js/frontend/*.min.js
-
-# Language files
-/languages/*.pot
-
-# Build
-build/
