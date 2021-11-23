@@ -13,7 +13,6 @@
 	var GhopDoorButton = function( element, options ) {
 		var defaults = {
 			'buttonText': 'Opening&hellip;',
-			'phone': '',
 			'phoneVerified': false
 		};
 
@@ -128,7 +127,6 @@
 
 	$(function () {
 		$( '#ghop-open-door' ).ghopDoorButton({
-			phone: params.phone,
 			phoneVerified: ( '1' === params.phone_verified ),
 			buttonText: params.button_text
 		});

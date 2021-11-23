@@ -105,7 +105,6 @@ class Ghop {
 				'ajax_url'       => admin_url( 'admin-ajax.php' ),
 				'nonce'          => wp_create_nonce( 'ghop-open-door' ),
 				'button_text'    => __( 'Opening&hellip;', 'ghop' ),
-				'phone'          => get_user_meta( $user_id, 'mobile', true ),
 				'phone_verified' => get_user_meta( $user_id, 'mobile_verified', true ),
 			)
 		);
