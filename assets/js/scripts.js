@@ -94,6 +94,9 @@
 					width: 'auto',
 					content: ''
 				} );
+			} else {
+				this.verifyPhoneDialog.open();
+				this.verifyPhoneDialog.showLoading();
 			}
 
 			$.post( {
