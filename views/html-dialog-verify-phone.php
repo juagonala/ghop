@@ -16,29 +16,29 @@ defined( 'ABSPATH' ) || exit;
  */
 ?>
 <div class="ghop-dialog-content phone-verification">
-	<h3 class="phone-verification-heading">Mobile verification</h3>
+	<h3 class="phone-verification-heading"><?php esc_html_e( 'Verify your phone', 'ghop' ); ?></h3>
 
 	<?php if ( 1 === $step ) : ?>
-		<p>Enter your phone number</p>
+		<p><?php esc_html_e( 'Enter your phone number', 'ghop' ); ?></p>
 	<?php elseif ( 2 === $step ) : ?>
-		<p>We send you a verification code</p>
+		<p><?php esc_html_e( 'We sent you a SMS with a code', 'ghop' ); ?></p>
 	<?php else : ?>
-		<p>Your phone was verified successfully.</p>
-		<p><button class="button phone-verified-button">Accept</button></p>
+		<p><?php esc_html_e( 'Your phone was verified successfully.', 'ghop' ); ?></p>
+		<p><button class="phone-verified-button"><?php esc_html_e( 'Accept', 'ghop' ); ?></button></p>
 	<?php endif; ?>
 
 	<?php if ( 3 > $step ) : ?>
-		<form id="ghop-verify-phone-form" action="" method="POST">
+		<form id="ghop-verify-phone-form" method="POST" action="">
 			<?php if ( 1 === $step ) : ?>
-				<label class="screen-reader-text" for="phone">Phone</label>
+				<label class="screen-reader-text" for="phone"><?php esc_html_e( 'Phone', 'ghop' ); ?></label>
 				<input id="phone" class="wp-sms-input-mobile" type="text" name="phone" value="<?php echo esc_attr( $phone ); ?>" />
 			<?php else : ?>
-				<label class="screen-reader-text" for="phone">Code</label>
+				<label class="screen-reader-text" for="code"><?php esc_html_e( 'Code', 'ghop' ); ?></label>
 				<input id="code" type="text" name="code" value="" placeholder="123456" />
 			<?php endif; ?>
 
 			<input type="hidden" name="step" value="<?php echo esc_attr( $step ); ?>">
-			<input class="button" type="submit" value="Submit" />
+			<input class="button" type="submit" value="<?php esc_attr_e( 'Submit', 'ghop' ); ?>" />
 		</form>
 	<?php endif; ?>
 </div>
