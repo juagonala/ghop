@@ -71,7 +71,7 @@
 				dataType: 'json',
 				data: {
 					action: 'ghop_open_door',
-					nonce: params.nonce
+					nonce: params.nonces.open_door
 				},
 				success: function( result ) {
 					var $notice = $( '<div class="ghop-open-door-notice"></div>' )
@@ -91,7 +91,8 @@
 		verifyPhone: function( args ) {
 			var that = this,
 				data = $.extend( {}, args || {}, {
-					action: 'ghop_verify_phone'
+					action: 'ghop_verify_phone',
+					nonce: params.nonces.verify_phone
 				} );
 
 			if ( ! this.verifyPhoneDialog ) {

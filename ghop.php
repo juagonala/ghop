@@ -103,10 +103,13 @@ class Ghop {
 			'ghop-scripts',
 			'ghop_scripts_params',
 			array(
-				'ajax_url'       => admin_url( 'admin-ajax.php' ),
-				'nonce'          => wp_create_nonce( 'ghop-open-door' ),
 				'button_text'    => __( 'Opening&hellip;', 'ghop' ),
 				'phone_verified' => get_user_meta( $user_id, 'mobile_verified', true ),
+				'ajax_url'       => admin_url( 'admin-ajax.php' ),
+				'nonces'         => array(
+					'verify_phone' => wp_create_nonce( 'ghop-verify-phone' ),
+					'open_door'    => wp_create_nonce( 'ghop-open-door' ),
+				),
 			)
 		);
 	}
@@ -117,6 +120,8 @@ class Ghop {
 	 * @since 1.0.0
 	 */
 	public function ajax_verify_phone() {
+		check_ajax_referer( 'ghop-verify-phone', 'nonce' );
+
 		$step = ( ! empty( $_POST['step'] ) ? intval( wp_unslash( $_POST['step'] ) ) : 1 );
 
 		if ( 1 === $step ) {
