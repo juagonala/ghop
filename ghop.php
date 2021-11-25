@@ -33,6 +33,7 @@ class Ghop {
 	 */
 	public function __construct() {
 		$this->define_constants();
+		$this->includes();
 		$this->init_hooks();
 	}
 
@@ -46,6 +47,15 @@ class Ghop {
 		$this->define( 'GHOP_PATH', plugin_dir_path( __FILE__ ) );
 		$this->define( 'GHOP_URL', plugin_dir_url( __FILE__ ) );
 		$this->define( 'GHOP_BASENAME', plugin_basename( __FILE__ ) );
+	}
+
+	/**
+	 * Includes the necessary files.
+	 *
+	 * @since {version}
+	 */
+	private function includes() {
+		include_once GHOP_PATH . 'includes/class-ghop-phone-verifier.php';
 	}
 
 	/**
@@ -122,24 +132,33 @@ class Ghop {
 	public function ajax_verify_phone() {
 		check_ajax_referer( 'ghop-verify-phone', 'nonce' );
 
-		$step = ( ! empty( $_POST['step'] ) ? intval( wp_unslash( $_POST['step'] ) ) : 1 );
+		$step    = ( ! empty( $_POST['step'] ) ? intval( wp_unslash( $_POST['step'] ) ) : 1 );
+		$user_id = get_current_user_id();
+		$error   = false;
 
 		if ( 1 === $step ) {
 			// Phone not submitted yet.
 			if ( ! isset( $_POST['phone'] ) ) {
-				$phone = get_user_meta( get_current_user_id(), 'mobile', true );
+				$phone = Ghop_Phone_Verifier::get_user_phone( $user_id );
 			} else {
-				$phone = sanitize_text_field( wp_unslash( $_POST['phone'] ) );
+				$phone  = sanitize_text_field( wp_unslash( $_POST['phone'] ) );
+				$result = Ghop_Phone_Verifier::validate_phone( $phone, $user_id );
 
-				// TODO: Validate phone here.
-				// TODO: Set customer phone and generate the verification code.
-				$step = 2;
+				if ( is_wp_error( $result ) ) {
+					$error = $result->get_error_message();
+				} else {
+					// TODO: Send SMS with the verification code.
+					$step = 2;
+				}
 			}
 		} elseif ( 2 === $step ) {
 			$code = ( ! empty( $_POST['code'] ) ? sanitize_text_field( wp_unslash( $_POST['code'] ) ) : '' );
 
-			// TODO: Validate code here.
-			$step = 3;
+			if ( Ghop_Phone_Verifier::verify_user( $user_id, $code ) ) {
+				$step = 3;
+			} else {
+				$error = __( 'The code is not correct.', 'ghop' );
+			}
 		}
 
 		ob_start();

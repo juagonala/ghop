@@ -38,10 +38,10 @@ defined( 'ABSPATH' ) || exit;
 		<form id="ghop-verify-phone-form" method="POST" action="">
 			<?php if ( 1 === $step ) : ?>
 				<label class="screen-reader-text" for="phone"><?php esc_html_e( 'Phone', 'ghop' ); ?></label>
-				<input id="phone" class="wp-sms-input-mobile" type="text" name="phone" value="<?php echo esc_attr( $phone ); ?>" />
+				<input id="phone" class="wp-sms-input-mobile" type="text" name="phone" value="<?php echo esc_attr( $phone ); ?>" required="required" />
 			<?php else : ?>
 				<label class="screen-reader-text" for="code"><?php esc_html_e( 'Code', 'ghop' ); ?></label>
-				<input id="code" type="text" name="code" value="" placeholder="123456" />
+				<input id="code" type="text" name="code" value="" placeholder="123456" required="required" />
 			<?php endif; ?>
 
 			<input type="hidden" name="step" value="<?php echo esc_attr( $step ); ?>">
