@@ -13,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @var int    $step  The dialog step.
  * @var string $phone Customer phone.
+ * @var string $error Error message.
  */
 ?>
 <div class="ghop-dialog-content phone-verification">
@@ -25,6 +26,12 @@ defined( 'ABSPATH' ) || exit;
 	<?php else : ?>
 		<p><?php esc_html_e( 'Your phone was verified successfully.', 'ghop' ); ?></p>
 		<p><button class="phone-verified-button"><?php esc_html_e( 'Accept', 'ghop' ); ?></button></p>
+	<?php endif; ?>
+
+	<?php if ( ! empty( $error ) ) : ?>
+		<div class="notice notice-error">
+			<p><?php echo esc_html( $error ); ?></p>
+		</div>
 	<?php endif; ?>
 
 	<?php if ( 3 > $step ) : ?>

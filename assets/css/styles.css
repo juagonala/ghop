@@ -19,8 +19,25 @@
 	text-align: center;
 }
 
+.ghop-dialog-content .notice {
+	margin-top: 1rem;
+	padding: 0.3rem;
+	font-size: 1rem;
+	line-height: 1.2;
+}
+
+.ghop-dialog-content .notice-error {
+	background-color: #fff0f4;
+	color: #c51244;
+}
+
 .phone-verification-heading {
 	margin: 1rem 0;
+}
+
+#ghop-verify-phone-form input,
+#ghop-verify-phone-form .intl-tel-input {
+	margin-top: 1rem;
 }
 
 #ghop-verify-phone-form input[type="submit"],
