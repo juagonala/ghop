@@ -48,7 +48,7 @@ class Ghop_Phone_Verifier {
 	 */
 	public static function validate_phone( $phone, $user_id = 0 ) {
 		if ( empty( $phone ) ) {
-			return new WP_Error( 'phone_required', __( 'Phone number required', 'phone' ) );
+			return new WP_Error( 'invalid_phone', __( 'Invalid phone number', 'phone' ) );
 		}
 
 		if ( self::duplicated_phone( $phone, $user_id ) ) {
@@ -113,7 +113,50 @@ class Ghop_Phone_Verifier {
 	}
 
 	/**
-	 * Verifies the code for the specified user.
+	 * Sends an SMS with a code to verify the phone number.
+	 *
+	 * @since {version}
+	 *
+	 * @param int    $user_id The user ID.
+	 * @param string $phone   Optional. The phone number. Default false.
+	 * @return bool
+	 */
+	public static function send_verification_code( $user_id, $phone = false ) {
+		$user = get_user_by( 'id', $user_id );
+
+		if ( ! $user instanceof WP_User ) {
+			return false;
+		}
+
+		$phone = ( $phone ? $phone : self::get_user_phone( $user_id ) );
+
+		if ( ! $phone ) {
+			return false;
+		}
+
+		/* translators: %otp%: Verification code */
+		$message = __( 'This is the code to verify your phone number: %otp%', 'ghop' );
+		$options = get_option( 'wpsms_settings', array() );
+
+		if ( ! empty( $options['mobile_verify_message'] ) ) {
+			$message = $options['mobile_verify_message'];
+		}
+
+		$replacements = array(
+			'%otp%'        => self::generate_code_for_user( $user_id ),
+			'%user_name%'  => $user->user_login,
+			'%first_name%' => $user->first_name,
+			'%last_name%'  => $user->last_name,
+			'%nickname%'   => $user->nickname,
+		);
+
+		$message = str_replace( array_keys( $replacements ), array_values( $replacements ), $message );
+
+		return self::send_sms( $phone, $message );
+	}
+
+	/**
+	 * Validates the code for the specified user.
 	 *
 	 * @since {version}
 	 *
@@ -121,7 +164,7 @@ class Ghop_Phone_Verifier {
 	 * @param int $code    The code to verify.
 	 * @return bool
 	 */
-	public static function is_valid( $user_id, $code ) {
+	public static function validate_code( $user_id, $code ) {
 		$user_code = get_user_meta( $user_id, 'mobile_verify_code', true );
 
 		return ( $user_code && $user_code === $code );
@@ -137,7 +180,7 @@ class Ghop_Phone_Verifier {
 	 * @return bool
 	 */
 	public static function verify_user( $user_id, $code ) {
-		if ( ! self::is_valid( $user_id, $code ) ) {
+		if ( ! self::validate_code( $user_id, $code ) ) {
 			return false;
 		}
 
@@ -145,5 +188,29 @@ class Ghop_Phone_Verifier {
 		update_post_meta( $user_id, 'mobile_verified', 1 );
 
 		return true;
+	}
+
+	/**
+	 * Sends an SMS.
+	 *
+	 * @since {version}
+	 *
+	 * @param string $phone   The phone number.
+	 * @param string $message The message to send.
+	 * @return bool
+	 */
+	protected static function send_sms( $phone, $message ) {
+		if ( ! function_exists( 'wp_sms_initial_gateway' ) ) {
+			return false;
+		}
+
+		$sms_gateway = wp_sms_initial_gateway();
+
+		$sms_gateway->to  = array( $phone );
+		$sms_gateway->msg = $message;
+
+		$result = $sms_gateway->SendSMS();
+
+		return ( ! is_wp_error( $result ) );
 	}
 }

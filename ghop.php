@@ -148,8 +148,12 @@ class Ghop {
 					$error = $result->get_error_message();
 				} else {
 					Ghop_Phone_Verifier::set_user_phone( $user_id, $phone );
-					// TODO: Send SMS with the verification code.
-					$step = 2;
+
+					if ( Ghop_Phone_Verifier::send_verification_code( $user_id, $phone ) ) {
+						$step = 2;
+					} else {
+						$error = __( 'The phone cannot be verified.', 'ghop' );
+					}
 				}
 			}
 		} elseif ( 2 === $step ) {
