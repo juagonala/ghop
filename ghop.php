@@ -141,12 +141,13 @@ class Ghop {
 			if ( ! isset( $_POST['phone'] ) ) {
 				$phone = Ghop_Phone_Verifier::get_user_phone( $user_id );
 			} else {
-				$phone  = sanitize_text_field( wp_unslash( $_POST['phone'] ) );
+				$phone  = str_replace( ' ', '', sanitize_text_field( wp_unslash( $_POST['phone'] ) ) );
 				$result = Ghop_Phone_Verifier::validate_phone( $phone, $user_id );
 
 				if ( is_wp_error( $result ) ) {
 					$error = $result->get_error_message();
 				} else {
+					Ghop_Phone_Verifier::set_user_phone( $user_id, $phone );
 					// TODO: Send SMS with the verification code.
 					$step = 2;
 				}
