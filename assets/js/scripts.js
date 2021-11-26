@@ -46,7 +46,8 @@
 				that.verifyPhoneDialog.showLoading();
 				that.verifyPhone({
 					step: $( this ).find( 'input[name="step"]' ).val(),
-					phone: $( this ).find( 'input[name="phone"]' ).val()
+					phone: $( this ).find( 'input[name="phone"]' ).val(),
+					code: $( this ).find( 'input[name="code"]' ).val()
 				} );
 
 				return false;
