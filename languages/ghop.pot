@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ghop 1.0.0\n"
+"Project-Id-Version: Ghop 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ghop\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-07-14T20:30:34+00:00\n"
+"POT-Creation-Date: 2021-11-29T11:59:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: ghop\n"
@@ -34,23 +34,72 @@ msgstr ""
 msgid "https://juagonala.com/"
 msgstr ""
 
-#: ghop.php:99
+#: ghop.php:116
 msgid "Opening&hellip;"
 msgstr ""
 
-#: ghop.php:113
+#: ghop.php:155
+msgid "The phone cannot be verified."
+msgstr ""
+
+#: ghop.php:165
+msgid "The code is not correct."
+msgstr ""
+
+#: ghop.php:187
 msgid "Log in first."
 msgstr ""
 
 #. translators: %s: contact email
-#: ghop.php:123
+#: ghop.php:197
 msgid "We have detected a suspicious situation. Write to us at %s for more details. "
 msgstr ""
 
-#: ghop.php:156
+#: ghop.php:205
+msgid "Phone not verified."
+msgstr ""
+
+#: ghop.php:234
 msgid "An unexpected error occurred. Please, contact us for assistance."
 msgstr ""
 
-#: ghop.php:159
+#: ghop.php:237
 msgid "Shop opened. Welcome!"
+msgstr ""
+
+#. translators: %otp%: Verification code
+#: includes/class-ghop-phone-verifier.php:187
+msgid "This is the code to verify your phone number: %otp%"
+msgstr ""
+
+#: views/html-dialog-verify-phone.php:20
+msgid "Verify your phone"
+msgstr ""
+
+#: views/html-dialog-verify-phone.php:23
+msgid "Enter your phone number"
+msgstr ""
+
+#: views/html-dialog-verify-phone.php:25
+msgid "We sent you a SMS with a code"
+msgstr ""
+
+#: views/html-dialog-verify-phone.php:27
+msgid "Your phone was verified successfully."
+msgstr ""
+
+#: views/html-dialog-verify-phone.php:28
+msgid "Accept"
+msgstr ""
+
+#: views/html-dialog-verify-phone.php:40
+msgid "Phone"
+msgstr ""
+
+#: views/html-dialog-verify-phone.php:43
+msgid "Code"
+msgstr ""
+
+#: views/html-dialog-verify-phone.php:48
+msgid "Submit"
 msgstr ""
