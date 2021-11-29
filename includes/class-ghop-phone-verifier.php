@@ -184,8 +184,8 @@ class Ghop_Phone_Verifier {
 			return false;
 		}
 
-		delete_post_meta( $user_id, 'mobile_verify_code' );
-		update_post_meta( $user_id, 'mobile_verified', 1 );
+		delete_user_meta( $user_id, 'mobile_verify_code' );
+		update_user_meta( $user_id, 'mobile_verified', 1 );
 
 		return true;
 	}
