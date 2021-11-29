@@ -13,7 +13,7 @@
 	var GhopDoorButton = function( element, options ) {
 		var defaults = {
 			'buttonText': 'Opening&hellip;',
-			'phoneVerified': false
+			'verifyPhone': false
 		};
 
 		this.options           = $.extend( true, {}, defaults, options );
@@ -31,10 +31,10 @@
 			this.$element.on( 'click', function( event ) {
 				event.preventDefault();
 
-				if ( that.options.phoneVerified ) {
-					that.openDoor();
-				} else {
+				if ( that.options.verifyPhone ) {
 					that.verifyPhone();
+				} else {
+					that.openDoor();
 				}
 			} );
 
@@ -56,8 +56,8 @@
 			$( document.body ).on( 'click', '.ghop-dialog .phone-verified-button', function( event ) {
 				event.preventDefault();
 
+				that.options.verifyPhone = false;
 				that.verifyPhoneDialog.close();
-				that.options.phoneVerified = true;
 				that.openDoor();
 			} );
 		},
@@ -158,7 +158,7 @@
 
 	$(function () {
 		$( '#ghop-open-door' ).ghopDoorButton({
-			phoneVerified: ( '1' === params.phone_verified ),
+			verifyPhone: ( '1' === params.verify_phone ),
 			buttonText: params.button_text
 		});
 	});

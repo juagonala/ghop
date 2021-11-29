@@ -14,6 +14,18 @@ defined( 'ABSPATH' ) || exit;
 class Ghop_Phone_Verifier {
 
 	/**
+	 * Gets the user by ID.
+	 *
+	 * @since {version}
+	 *
+	 * @param int|WP_User $the_user User object or ID.
+	 * @return WP_User|false
+	 */
+	protected static function get_user( $the_user ) {
+		return ( $the_user instanceof WP_User ? $the_user : get_user_by( 'id', $the_user ) );
+	}
+
+	/**
 	 * Gets the phone number for the specified user.
 	 *
 	 * @since {version}
@@ -35,6 +47,31 @@ class Ghop_Phone_Verifier {
 	 */
 	public static function set_user_phone( $user_id, $phone ) {
 		update_user_meta( $user_id, 'mobile', $phone );
+	}
+
+	/**
+	 * Gets if the specific user needs to verify his phone.
+	 *
+	 * @since {version}
+	 *
+	 * @param int|WP_User $the_user User object or ID.
+	 * @return bool
+	 */
+	public static function needs_verification( $the_user ) {
+		if ( ! defined( 'WP_SMS_PRO_URL' ) ) {
+			return false;
+		}
+
+		$user = self::get_user( $the_user );
+
+		if ( ! $user ) {
+			return false;
+		}
+
+		return (
+			in_array( 'subscriber', $user->roles, true ) &&
+			! get_user_meta( $user->ID, 'mobile_verified', true )
+		);
 	}
 
 	/**
@@ -134,9 +171,9 @@ class Ghop_Phone_Verifier {
 	 * @return bool
 	 */
 	public static function send_verification_code( $user_id, $phone = false ) {
-		$user = get_user_by( 'id', $user_id );
+		$user = self::get_user( $user_id );
 
-		if ( ! $user instanceof WP_User ) {
+		if ( ! $user ) {
 			return false;
 		}
 

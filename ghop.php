@@ -100,9 +100,9 @@ class Ghop {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
-		$user_id = get_current_user_id();
+		$verify_phone = Ghop_Phone_Verifier::needs_verification( wp_get_current_user() );
 
-		if ( defined( 'WP_SMS_PRO_URL' ) ) {
+		if ( $verify_phone ) {
 			wp_enqueue_style( 'jquery-confirm', WP_SMS_PRO_URL . 'assets/js/jquery-confirm/jquery-confirm.min.css', false, WP_SMS_PRO_VERSION );
 			wp_enqueue_script( 'jquery-confirm', WP_SMS_PRO_URL . 'assets/js/jquery-confirm/jquery-confirm.min.js', array( 'jquery' ), WP_SMS_PRO_VERSION, true );
 		}
@@ -113,10 +113,10 @@ class Ghop {
 			'ghop-scripts',
 			'ghop_scripts_params',
 			array(
-				'button_text'    => __( 'Opening&hellip;', 'ghop' ),
-				'phone_verified' => get_user_meta( $user_id, 'mobile_verified', true ),
-				'ajax_url'       => admin_url( 'admin-ajax.php' ),
-				'nonces'         => array(
+				'button_text'  => __( 'Opening&hellip;', 'ghop' ),
+				'verify_phone' => $verify_phone,
+				'ajax_url'     => admin_url( 'admin-ajax.php' ),
+				'nonces'       => array(
 					'verify_phone' => wp_create_nonce( 'ghop-verify-phone' ),
 					'open_door'    => wp_create_nonce( 'ghop-open-door' ),
 				),
@@ -201,12 +201,8 @@ class Ghop {
 			);
 		}
 
-		// Additional validation for subscribers.
-		if ( in_array( 'subscriber', $current_user->roles, true ) ) {
-			// Check the user has a verified phone.
-			if ( class_exists( 'WP_SMS', false ) && ! get_user_meta( $current_user->ID, 'mobile_verified', true ) ) {
-				wp_send_json_error( array( 'message' => __( 'Phone not verified.', 'ghop' ) ) );
-			}
+		if ( Ghop_Phone_Verifier::needs_verification( $current_user ) ) {
+			wp_send_json_error( array( 'message' => __( 'Phone not verified.', 'ghop' ) ) );
 		}
 
 		$current_time = time(); // UNIX timestamp.
