@@ -43,7 +43,7 @@ class Ghop {
 	 * @since 1.0.0
 	 */
 	private function define_constants() {
-		$this->define( 'GHOP_VERSION', '1.1.0' );
+		$this->define( 'GHOP_VERSION', '1.2.0' );
 		$this->define( 'GHOP_PATH', plugin_dir_path( __FILE__ ) );
 		$this->define( 'GHOP_URL', plugin_dir_url( __FILE__ ) );
 		$this->define( 'GHOP_BASENAME', plugin_basename( __FILE__ ) );
