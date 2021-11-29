@@ -141,7 +141,7 @@ class Ghop {
 			if ( ! isset( $_POST['phone'] ) ) {
 				$phone = Ghop_Phone_Verifier::get_user_phone( $user_id );
 			} else {
-				$phone  = str_replace( ' ', '', sanitize_text_field( wp_unslash( $_POST['phone'] ) ) );
+				$phone  = Ghop_Phone_Verifier::parse_phone( sanitize_text_field( wp_unslash( $_POST['phone'] ) ) );
 				$result = Ghop_Phone_Verifier::validate_phone( $phone, $user_id );
 
 				if ( is_wp_error( $result ) ) {

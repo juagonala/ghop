@@ -47,7 +47,7 @@ class Ghop_Phone_Verifier {
 	 * @return WP_Error|true True on success. WP_Error on failure.
 	 */
 	public static function validate_phone( $phone, $user_id = 0 ) {
-		if ( empty( $phone ) ) {
+		if ( 5 > strlen( $phone ) || 0 !== strpos( $phone, '+' ) ) {
 			return new WP_Error( 'invalid_phone', __( 'Invalid phone number', 'phone' ) );
 		}
 
@@ -56,6 +56,18 @@ class Ghop_Phone_Verifier {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Parses a phone number.
+	 *
+	 * @since {version}
+	 *
+	 * @param string $phone The phone number.
+	 * @return string
+	 */
+	public static function parse_phone( $phone ) {
+		return '+' . preg_replace( '/[^0-9.]/', '', $phone );
 	}
 
 	/**
