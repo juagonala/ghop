@@ -10,21 +10,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2021-07-13T15:49:16+00:00\n"
-"PO-Revision-Date: 2021-07-14 20:30+0000\n"
+"PO-Revision-Date: 2021-11-29 14:01+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: ghop\n"
 "Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Version: 2.5.3; wp-5.8-RC2"
 
+#: views/html-dialog-verify-phone.php:28
+msgid "Accept"
+msgstr "Aceptar"
+
 #. Description of the plugin
 msgid "Add-ons for the website."
 msgstr ""
 
-#: ghop.php:156
+#: ghop.php:234
 msgid "An unexpected error occurred. Please, contact us for assistance."
 msgstr ""
 "Ocurrió un error inesperado. Contáctenos con nosotros para obtener ayuda."
+
+#: views/html-dialog-verify-phone.php:43
+msgid "Code"
+msgstr "Código"
+
+#: views/html-dialog-verify-phone.php:23
+msgid "Enter your phone number"
+msgstr "Introduce tu número de teléfono"
 
 #. Plugin Name of the plugin
 msgid "Ghop"
@@ -42,21 +54,58 @@ msgstr ""
 msgid "juagonala"
 msgstr ""
 
-#: ghop.php:113
+#: ghop.php:187
 msgid "Log in first."
 msgstr "Inicie sesión primero."
 
-#: ghop.php:99
+#: ghop.php:116
 msgid "Opening&hellip;"
 msgstr "Abriendo&hellip;"
 
-#: ghop.php:159
+#: views/html-dialog-verify-phone.php:40
+msgid "Phone"
+msgstr "Teléfono"
+
+#: ghop.php:205
+msgid "Phone not verified."
+msgstr "No has verificado tu teléfono"
+
+#: ghop.php:237
 msgid "Shop opened. Welcome!"
 msgstr "Tienda abierta. ¡Bienvenido!"
 
+#: views/html-dialog-verify-phone.php:48
+msgid "Submit"
+msgstr "Enviar"
+
+#: ghop.php:165
+msgid "The code is not correct."
+msgstr "El código no es correcto"
+
+#: ghop.php:155
+msgid "The phone cannot be verified."
+msgstr "No es posible verificar el teléfono"
+
+#. translators: %otp%: Verification code
+#: includes/class-ghop-phone-verifier.php:187
+msgid "This is the code to verify your phone number: %otp%"
+msgstr "Este es el código para verificar tu teléfono: %otp%"
+
+#: views/html-dialog-verify-phone.php:20
+msgid "Verify your phone"
+msgstr "Verifica tu teléfono"
+
 #. translators: %s: contact email
-#: ghop.php:123
+#: ghop.php:197
 msgid ""
 "We have detected a suspicious situation. Write to us at %s for more details. "
 msgstr ""
 "Hemos detectado una situación sospechosa. Escríbenos a %s para más detalles."
+
+#: views/html-dialog-verify-phone.php:25
+msgid "We sent you a SMS with a code"
+msgstr "Te hemos enviado un código de verificación (SMS)"
+
+#: views/html-dialog-verify-phone.php:27
+msgid "Your phone was verified successfully."
+msgstr "Tu teléfono se ha verificado correctamente."
