@@ -3,7 +3,7 @@
  * Phone verification handler.
  *
  * @package Ghop
- * @since   {version}
+ * @since   1.2.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -16,7 +16,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Gets the user by ID.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param int|WP_User $the_user User object or ID.
 	 * @return WP_User|false
@@ -28,7 +28,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Gets the phone number for the specified user.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 
 	 * @param int $user_id The user ID.
 	 * @return string
@@ -40,7 +40,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Sets the phone number for the specified user.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 
 	 * @param int    $user_id The user ID.
 	 * @param string $phone   The phone number.
@@ -52,7 +52,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Gets if the specific user needs to verify his phone.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param int|WP_User $the_user User object or ID.
 	 * @return bool
@@ -77,7 +77,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Validates the phone number.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param string $phone   The phone number.
 	 * @param int    $user_id Optional. The user ID. Default 0.
@@ -98,7 +98,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Parses a phone number.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param string $phone The phone number.
 	 * @return string
@@ -110,7 +110,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Gets if the phone is already taken from another user.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param string $phone   The phone number.
 	 * @param int    $user_id Optional. The user ID. Default 0.
@@ -137,7 +137,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Generates a verification code.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @return int
 	 */
@@ -148,7 +148,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Generates a verification code for the specified user.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param int $user_id The user ID.
 	 * @return int
@@ -164,7 +164,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Sends an SMS with a code to verify the phone number.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param int    $user_id The user ID.
 	 * @param string $phone   Optional. The phone number. Default false.
@@ -207,7 +207,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Validates the code for the specified user.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param int $user_id The user ID.
 	 * @param int $code    The code to verify.
@@ -222,7 +222,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Verifies the code for the specified user.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param int $user_id The user ID.
 	 * @param int $code    The code to verify.
@@ -242,7 +242,7 @@ class Ghop_Phone_Verifier {
 	/**
 	 * Sends an SMS.
 	 *
-	 * @since {version}
+	 * @since 1.2.0
 	 *
 	 * @param string $phone   The phone number.
 	 * @param string $message The message to send.

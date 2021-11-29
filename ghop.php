@@ -3,7 +3,7 @@
  * Plugin Name: Ghop
  * Plugin URI: https://ghop.es
  * Description: Add-ons for the website.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: juagonala
  * Author URI: https://juagonala.com/
  * Requires PHP: 5.4

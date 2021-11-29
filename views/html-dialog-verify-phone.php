@@ -3,7 +3,7 @@
  * View: Verify phone dialog.
  *
  * @package Ghop/Views
- * @since   {version}
+ * @since   1.2.0
  */
 
 defined( 'ABSPATH' ) || exit;
