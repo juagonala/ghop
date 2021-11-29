@@ -57,6 +57,8 @@
 				event.preventDefault();
 
 				that.verifyPhoneDialog.close();
+				that.options.phoneVerified = true;
+				that.openDoor();
 			} );
 		},
 
