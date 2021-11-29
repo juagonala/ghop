@@ -3,7 +3,7 @@
  * Plugin Name: Ghop
  * Plugin URI: https://ghop.es
  * Description: Add-ons for the website.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: juagonala
  * Author URI: https://juagonala.com/
  * Requires PHP: 5.4
@@ -33,6 +33,7 @@ class Ghop {
 	 */
 	public function __construct() {
 		$this->define_constants();
+		$this->includes();
 		$this->init_hooks();
 	}
 
@@ -46,6 +47,15 @@ class Ghop {
 		$this->define( 'GHOP_PATH', plugin_dir_path( __FILE__ ) );
 		$this->define( 'GHOP_URL', plugin_dir_url( __FILE__ ) );
 		$this->define( 'GHOP_BASENAME', plugin_basename( __FILE__ ) );
+	}
+
+	/**
+	 * Includes the necessary files.
+	 *
+	 * @since {version}
+	 */
+	private function includes() {
+		include_once GHOP_PATH . 'includes/class-ghop-phone-verifier.php';
 	}
 
 	/**
@@ -70,6 +80,7 @@ class Ghop {
 	private function init_hooks() {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'wp_ajax_ghop_verify_phone', array( $this, 'ajax_verify_phone' ) );
 		add_action( 'wp_ajax_ghop_open_door', array( $this, 'ajax_open_door' ) );
 	}
 
@@ -89,20 +100,83 @@ class Ghop {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
+		$verify_phone = Ghop_Phone_Verifier::needs_verification( wp_get_current_user() );
+
+		if ( $verify_phone ) {
+			wp_enqueue_style( 'jquery-confirm', WP_SMS_PRO_URL . 'assets/js/jquery-confirm/jquery-confirm.min.css', false, WP_SMS_PRO_VERSION );
+			wp_enqueue_script( 'jquery-confirm', WP_SMS_PRO_URL . 'assets/js/jquery-confirm/jquery-confirm.min.js', array( 'jquery' ), WP_SMS_PRO_VERSION, true );
+		}
+
+		wp_enqueue_style( 'ghop-styles', GHOP_URL . '/assets/css/styles.css', array(), GHOP_VERSION );
 		wp_enqueue_script( 'ghop-scripts', GHOP_URL . '/assets/js/scripts.js', array( 'jquery' ), GHOP_VERSION, true );
 		wp_localize_script(
 			'ghop-scripts',
 			'ghop_scripts_params',
 			array(
-				'ajax_url'    => admin_url( 'admin-ajax.php' ),
-				'nonce'       => wp_create_nonce( 'ghop-open-door' ),
-				'button_text' => __( 'Opening&hellip;', 'ghop' ),
+				'button_text'  => __( 'Opening&hellip;', 'ghop' ),
+				'verify_phone' => $verify_phone,
+				'ajax_url'     => admin_url( 'admin-ajax.php' ),
+				'nonces'       => array(
+					'verify_phone' => wp_create_nonce( 'ghop-verify-phone' ),
+					'open_door'    => wp_create_nonce( 'ghop-open-door' ),
+				),
 			)
 		);
 	}
 
 	/**
-	 * AJAX request for opening the shop door.
+	 * AJAX Request for verifying the customer phone.
+	 *
+	 * @since 1.0.0
+	 */
+	public function ajax_verify_phone() {
+		check_ajax_referer( 'ghop-verify-phone', 'nonce' );
+
+		$step    = ( ! empty( $_POST['step'] ) ? intval( wp_unslash( $_POST['step'] ) ) : 1 );
+		$user_id = get_current_user_id();
+		$error   = false;
+
+		if ( 1 === $step ) {
+			// Phone not submitted yet.
+			if ( ! isset( $_POST['phone'] ) ) {
+				$phone = Ghop_Phone_Verifier::get_user_phone( $user_id );
+			} else {
+				$phone  = Ghop_Phone_Verifier::parse_phone( sanitize_text_field( wp_unslash( $_POST['phone'] ) ) );
+				$result = Ghop_Phone_Verifier::validate_phone( $phone, $user_id );
+
+				if ( is_wp_error( $result ) ) {
+					$error = $result->get_error_message();
+				} else {
+					Ghop_Phone_Verifier::set_user_phone( $user_id, $phone );
+
+					if ( Ghop_Phone_Verifier::send_verification_code( $user_id, $phone ) ) {
+						$step = 2;
+					} else {
+						$error = __( 'The phone cannot be verified.', 'ghop' );
+					}
+				}
+			}
+		} elseif ( 2 === $step ) {
+			$code = ( ! empty( $_POST['code'] ) ? sanitize_text_field( wp_unslash( $_POST['code'] ) ) : '' );
+
+			if ( Ghop_Phone_Verifier::verify_user( $user_id, $code ) ) {
+				$step = 3;
+			} else {
+				$error = __( 'The code is not correct.', 'ghop' );
+			}
+		}
+
+		ob_start();
+
+		include GHOP_PATH . 'views/html-dialog-verify-phone.php';
+
+		$content = ob_get_clean();
+
+		wp_send_json_success( array( 'content' => $content ) );
+	}
+
+	/**
+	 * AJAX Request for opening the shop door.
 	 *
 	 * @since 1.0.0
 	 */
@@ -125,6 +199,10 @@ class Ghop {
 					),
 				)
 			);
+		}
+
+		if ( Ghop_Phone_Verifier::needs_verification( $current_user ) ) {
+			wp_send_json_error( array( 'message' => __( 'Phone not verified.', 'ghop' ) ) );
 		}
 
 		$current_time = time(); // UNIX timestamp.
