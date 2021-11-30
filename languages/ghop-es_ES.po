@@ -5,12 +5,12 @@ msgstr ""
 "Project-Id-Version: Ghop 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ghop\n"
 "Last-Translator: \n"
-"Language-Team: Spanish (Spain)\n"
+"Language-Team: Español\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2021-07-13T15:49:16+00:00\n"
-"PO-Revision-Date: 2021-11-29 14:01+0000\n"
+"PO-Revision-Date: 2021-11-30 16:35+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: ghop\n"
 "Language: es_ES\n"
@@ -50,6 +50,10 @@ msgstr ""
 msgid "https://juagonala.com/"
 msgstr ""
 
+#: includes/class-ghop-phone-verifier.php:88
+msgid "Invalid phone number"
+msgstr "Teléfono no válido"
+
 #. Author of the plugin
 msgid "juagonala"
 msgstr ""
@@ -85,6 +89,10 @@ msgstr "El código no es correcto"
 #: ghop.php:155
 msgid "The phone cannot be verified."
 msgstr "No es posible verificar el teléfono"
+
+#: includes/class-ghop-phone-verifier.php:92
+msgid "The phone number is already taken"
+msgstr "Este teléfono ya está en uso"
 
 #. translators: %otp%: Verification code
 #: includes/class-ghop-phone-verifier.php:187

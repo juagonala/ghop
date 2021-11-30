@@ -85,11 +85,11 @@ class Ghop_Phone_Verifier {
 	 */
 	public static function validate_phone( $phone, $user_id = 0 ) {
 		if ( 5 > strlen( $phone ) || 0 !== strpos( $phone, '+' ) ) {
-			return new WP_Error( 'invalid_phone', __( 'Invalid phone number', 'phone' ) );
+			return new WP_Error( 'invalid_phone', __( 'Invalid phone number', 'ghop' ) );
 		}
 
 		if ( self::duplicated_phone( $phone, $user_id ) ) {
-			return new WP_Error( 'phone_duplicated', __( 'The phone number is already taken', 'phone' ) );
+			return new WP_Error( 'phone_duplicated', __( 'The phone number is already taken', 'ghop' ) );
 		}
 
 		return true;
