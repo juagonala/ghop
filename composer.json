@@ -1,0 +1,22 @@
+{
+    "name": "juagonala/ghop",
+    "description": "Ghop addons",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "scripts": {
+        "makepot-audit": [
+            "wp --allow-root i18n make-pot . --exclude=\".github,bin,build,vendor,node_modules,tests\" --slug=ghop"
+        ],
+        "makepot": [
+            "@makepot-audit --skip-audit"
+        ]
+    },
+    "extra": {
+        "scripts-description": {
+            "makepot-audit": "Generate languages/ghop.pot file and run audit",
+            "makepot": "Generate languages/ghop.pot file"
+        }
+    }
+}
