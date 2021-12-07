@@ -41,7 +41,7 @@ defined( 'ABSPATH' ) || exit;
 				<input id="phone" class="wp-sms-input-mobile" type="text" name="phone" value="<?php echo esc_attr( $phone ); ?>" required="required" />
 			<?php else : ?>
 				<label class="screen-reader-text" for="code"><?php esc_html_e( 'Code', 'ghop' ); ?></label>
-				<input id="code" type="text" name="code" value="" placeholder="123456" required="required" />
+				<input id="code" type="text" name="code" value="" placeholder="1234" required="required" />
 			<?php endif; ?>
 
 			<input type="hidden" name="step" value="<?php echo esc_attr( $step ); ?>">
