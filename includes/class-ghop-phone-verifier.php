@@ -142,7 +142,7 @@ class Ghop_Phone_Verifier {
 	 * @return int
 	 */
 	protected static function generate_code() {
-		return wp_rand( 111111, 999999 );
+		return wp_rand( 1111, 9999 );
 	}
 
 	/**
