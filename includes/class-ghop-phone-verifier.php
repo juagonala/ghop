@@ -185,7 +185,7 @@ class Ghop_Phone_Verifier {
 
 		/* translators: %otp%: Verification code */
 		$message = __( 'This is the code to verify your phone number: %otp%', 'ghop' );
-		$options = get_option( 'wpsms_settings', array() );
+		$options = get_option( 'wps_pp_settings', array() );
 
 		if ( ! empty( $options['mobile_verify_message'] ) ) {
 			$message = $options['mobile_verify_message'];
