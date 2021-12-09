@@ -3,7 +3,7 @@
  * Plugin Name: Ghop
  * Plugin URI: https://ghop.es
  * Description: Add-ons for the website.
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: juagonala
  * Author URI: https://juagonala.com/
  * Requires PHP: 5.4
@@ -43,7 +43,7 @@ class Ghop {
 	 * @since 1.0.0
 	 */
 	private function define_constants() {
-		$this->define( 'GHOP_VERSION', '1.2.2' );
+		$this->define( 'GHOP_VERSION', '1.2.3' );
 		$this->define( 'GHOP_PATH', plugin_dir_path( __FILE__ ) );
 		$this->define( 'GHOP_URL', plugin_dir_url( __FILE__ ) );
 		$this->define( 'GHOP_BASENAME', plugin_basename( __FILE__ ) );
