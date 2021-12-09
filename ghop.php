@@ -206,12 +206,14 @@ class Ghop {
 		}
 
 		$current_time = time(); // UNIX timestamp.
+		$referer      = wp_get_referer();
 
 		// The data to submit to the shop's server.
 		$data = array(
 			'username' => $current_user->user_login,
-			'hora'     => wp_date( 'Y-m-d H:i:s', $current_time ),
 			'datetime' => $current_time,
+			'hora'     => wp_date( 'Y-m-d H:i:s', $current_time ),
+			'tienda'   => ( $referer ? wp_parse_url( $referer, PHP_URL_PATH ) : '' ),
 		);
 
 		$response = wp_remote_post(
